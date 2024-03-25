@@ -1,5 +1,6 @@
 package com.shouryashrey.RMS.Modal;
 
+import com.shouryashrey.RMS.Modal.Constants.UserStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -7,7 +8,6 @@ import lombok.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Builder
 @Table(name = "rms_users")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -28,6 +28,9 @@ public class User {
     private String identityProofType;
     private String identityProofRegistrationNumber;
 
+    @Enumerated(EnumType.STRING)
+    private UserStatus status;
+
     public User(String firstName, String lastName, String phoneNumber, String email, Address address, String identityProofType, String identityProofRegistrationNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -36,5 +39,18 @@ public class User {
         this.address = address;
         this.identityProofType = identityProofType;
         this.identityProofRegistrationNumber = identityProofRegistrationNumber;
+        this.status = UserStatus.ACTIVE;
+    }
+
+    public User(Long id, String firstName, String lastName, String phoneNumber, String email, Address address, String identityProofType, String identityProofRegistrationNumber, UserStatus status) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.address = address;
+        this.identityProofType = identityProofType;
+        this.identityProofRegistrationNumber = identityProofRegistrationNumber;
+        this.status = UserStatus.ACTIVE;
     }
 }
